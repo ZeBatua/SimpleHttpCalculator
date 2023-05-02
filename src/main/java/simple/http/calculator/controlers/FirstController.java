@@ -23,33 +23,24 @@ public class FirstController {
             model.addAttribute("message", "Invalid values or sign");
             return  "app/error";
         }
-
     }
 
     private double calcValues(Double first, Double second, String sign) {
-        double result = 0.0;
-        if (sign.equals(" ") || sign.equals("+")) { // +
-            result = first + second;
-        } else if (sign.equals("-")) {
-            result = first - second;
-        } else if (sign.equals("*")) {
-            result = first * second;
-        } else if (sign.equals("/")) {
-            result = first / second;
-        }
-        return result;
+        return switch (sign) {
+            case " ", "+" ->  first + second;
+            case "-" -> first - second;
+            case "*" -> first * second;
+            case "/" -> first / second;
+            default -> 0.0;
+        };
     }
 
     private boolean checkValues(Double v1, Double v2, String sign) {
-        if (v1 != null && v2 != null && isSign(sign)) return true;
-        else return false;
-            
+        return v1 != null && v2 != null && isSign(sign);
     }
 
     private boolean isSign(String sign) {
-        if (sign != null && (sign.equals("+") ||sign.equals(" ") || sign.equals("-") || sign.equals("*") || sign.equals("/"))) return true;
-        else return false;
+        return sign != null &&
+                (sign.equals("+") || sign.equals(" ") || sign.equals("-") || sign.equals("*") || sign.equals("/"));
     }
-
-
 }
